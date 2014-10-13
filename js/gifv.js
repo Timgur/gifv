@@ -14,36 +14,35 @@ GifVProto.detachedCallback = function() {
 };
 
 GifVProto.createTemplate = function(opts) {
-    switch(opts.type) {
-        case 'mp4':
-        case 'webm':
-            var self = this;
-            var fragment = document.createDocumentFragment();
-            this.vid = document.createElement('video');
-            this.vid.src = opts.file + '.' + opts.type;
-            this.vid.loop = opts.loop;
-            this.vid.autoplay = true;
+    var self = this;
+    var fragment = document.createDocumentFragment();
+    if (this.canPlayVideo()) {
+        this.vid = document.createElement('video');
+        this.vid.src = opts.file + '.' + opts.type;
+        this.vid.loop = opts.loop;
+        this.vid.autoplay = true;
 
-            fragment.appendChild(this.vid);
+        fragment.appendChild(this.vid);
 
-            if(!opts.loop) {
-                this.refresh = this.addRefreshButton();
-                fragment.appendChild(this.refresh);
+        if(!opts.loop) {
+            this.refresh = this.addRefreshButton();
+            fragment.appendChild(this.refresh);
 
-                this.refresh.addEventListener('click', function() {
-                    self.vid.currentTime = 0;
-                    self.vid.play();
-                });
-            }
-
-            return fragment;
-            break;
-        default:
-            var img = new Image();
-            img.src = opts.file + '.gif';
-            return img;
-            break;
+            this.refresh.addEventListener('click', function() {
+                self.vid.currentTime = 0;
+                self.vid.play();
+            });
+        }
+        return fragment;
+    } else {
+        var img = new Image();
+        img.src = opts.file + '.gif';
+        return img;
     }
+};
+
+GifVProto.canPlayVideo = function() {
+    return !!document.createElement('video').canPlayType;
 };
 
 GifVProto.playType = function() {

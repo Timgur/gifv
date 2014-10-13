@@ -1,6 +1,6 @@
 gifv
 ====
-A web component for gif video with fallback to original gif.
+A web component for gif video with fallback to original gif. Inspired by Imgur's gifv and developed in order to push boundaries and learn more about custom elements.
 
 <h2>Example</h2>
     <gifv src="http://i.imgur.com/w79nkJ8.gif" />

@@ -20,6 +20,7 @@ GifVProto.createTemplate = function(opts) {
         this.vid = document.createElement('video');
         this.vid.src = opts.file + '.' + opts.type;
         this.vid.loop = opts.loop;
+        this.vid.muted = false;
         this.vid.autoplay = true;
 
         fragment.appendChild(this.vid);

@@ -4,6 +4,7 @@ A web component for gif video with fallback to original gif. Inspired by Imgur's
 
 <h2>Example</h2>
   Add the gifv.js to the html document and add the below element to the body of the html file.
+  
     <gif-v src="http://i.imgur.com/w79nkJ8.gif" />
 
 <h2>Optional Attributes</h2>

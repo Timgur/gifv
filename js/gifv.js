@@ -9,25 +9,30 @@ GifVProto.createdCallback = function() {
     }));
 };
 
+GifVProto.detachedCallback = function() {
+    if(this.refresh) { this.refresh.removeEventListener('click'); }
+};
+
 GifVProto.createTemplate = function(opts) {
     switch(opts.type) {
         case 'mp4':
         case 'webm':
+            var self = this;
             var fragment = document.createDocumentFragment();
-            var vid = document.createElement('video');
-            vid.src = opts.file + '.' + opts.type;
-            vid.loop = opts.loop;
-            vid.autoplay = true;
+            this.vid = document.createElement('video');
+            this.vid.src = opts.file + '.' + opts.type;
+            this.vid.loop = opts.loop;
+            this.vid.autoplay = true;
 
-            fragment.appendChild(vid);
+            fragment.appendChild(this.vid);
 
             if(!opts.loop) {
-                var refresh = this.addRefreshButton();
-                fragment.appendChild(refresh);
+                this.refresh = this.addRefreshButton();
+                fragment.appendChild(this.refresh);
 
-                refresh.addEventListener('click', function() {
-                    vid.currentTime = 0;
-                    vid.play();
+                this.refresh.addEventListener('click', function() {
+                    self.vid.currentTime = 0;
+                    self.vid.play();
                 });
             }
 
